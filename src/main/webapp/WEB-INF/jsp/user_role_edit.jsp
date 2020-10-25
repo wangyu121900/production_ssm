@@ -128,6 +128,14 @@
 		<label><input name="permissionOption3" type="checkbox" value="252" />设备故障修改 </label> 
 		<label><input name="permissionOption3" type="checkbox" value="253" />设备故障删除 </label> 
 		<br><br>
+		
+		<span style="font-weight: bold;">机构管理：</span>
+		<label><input name="permissionOption3" type="checkbox" value="275" />机构新增 </label> 
+		<label><input name="permissionOption3" type="checkbox" value="276" />机构修改 </label> 
+		<label><input name="permissionOption3" type="checkbox" value="277" />机构删除 </label> 
+		<br><br>
+		
+		
 		<span style="font-weight: bold;">设备维修管理：</span>
 		<label><input name="permissionOption3" type="checkbox" value="261" />设备维修新增 </label> 
 		<label><input name="permissionOption3" type="checkbox" value="262" />设备维修修改 </label> 

@@ -3,18 +3,18 @@
 <link href="js/kindeditor-4.1.10/themes/default/default.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/kindeditor-all-min.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/kindeditor-4.1.10/lang/zh_CN.js"></script>
-<table class="easyui-datagrid" id="branchList" title="用户列表" 
-       data-options="singleSelect:false,collapsible:true,pagination:true,rownumbers:true,url:'branch/list',
-       	method:'get',pageSize:10,fitColumns:true,toolbar:toolbar_branch">
+
+<table class="easyui-datagrid" id="branchList" title="机构列表" data-options="singleSelect:false,collapsible:true,
+	pagination:true,rownumbers:true,url:'branch/list',method:'get',pageSize:10,fitColumns:true,toolbar:toolbar_branch">
     <thead>
         <tr>
-        	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'id',align:'center',width:150">机构编号</th>
-            <th data-options="field:'name',align:'center',width:150">机构名称</th>
-            <th data-options="field:'short_name',align:'center',width:150">机构简称</th>
-        </tr>
+			<th data-options="field:'ck',checkbox:true"></th>
+			<th data-options="field:'id',align:'center',width:100">机构编号</th>
+			<th data-options="field:'name',align:'center',width:100">机构名称</th>
+			<th data-options="field:'short_name',align:'center',width:100">机构简称</th>
+			</tr>
     </thead>
-</table>
+</table> 
 
 <div  id="toolbar_branch" style=" height: 22px; padding: 3px 11px; background: #fafafa;">  
 	
@@ -50,52 +50,48 @@
         <div id="menu_branch" style="width:120px"> 
 			<div data-options="name:'id'">机构编号</div> 
 			<div data-options="name:'name'">机构名称</div>
-			<div data-options="name:'s'">机构简称</div> 
+			<div data-options="name:'short_name'">机构简称</div> 
 		</div>     
     </div>  
-
 </div>  
 
-<div id="branchEditWindow" class="easyui-window" title="编辑用户" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'user/edit'" style="width:45%;height:60%;padding:10px;">
+<div id="branchEditWindow" class="easyui-window" title="编辑机构" data-options="modal:true,closed:true,resizable:true,
+	iconCls:'icon-save',href:'branch/edit'" style="width:65%;height:80%;padding:10px;">
 </div>
-<div id="branchAddWindow" class="easyui-window" title="添加用户" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'user/add'" style="width:45%;height:60%;padding:10px;">
-</div>
-<div id="branchRoleWindow" class="easyui-window" title="添加用户" data-options="modal:true,closed:true,resizable:true,
-	iconCls:'icon-save',href:'user/role'" style="width:45%;height:60%;padding:10px;">
+<div id="branchAddWindow" class="easyui-window" title="添加机构" data-options="modal:true,closed:true,resizable:true,
+	iconCls:'icon-save',href:'branch/add'" style="width:65%;height:80%;padding:10px;">
 </div>
 
 <script>
 function doSearch_branch(value,name){ //用户输入用户名,点击搜素,触发此函数  
 	if(value == null || value == ''){
+		
 		$("#branchList").datagrid({
 	        title:'机构列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
 			nowrap:true, toolbar:"toolbar_branch", url:'branch/list', method:'get', loadMsg:'数据加载中......',
-			fitColumns:true,
+			fitColumns:true,//允许表格自动缩放,以适应父容器
 	        columns : [ [ 
 				{field : 'ck', checkbox:true },
-				{field : 'id', width : 150, align:'center', title : '机构编号'},
-				{field : 'name', width : 150, align : 'center', title : '机构名称'},
-				{field : 'short_name', width : 150, align : 'center', title : '机构简称'},
+				{field : 'id', width : 100, align:'center', title : '机构编号'},
+				{field : 'name', width : 100, align : 'center', title : '机构名称'},
+				{field : 'short_name', width : 100, align : 'center', title : '机构简称'}
+				
 	        ] ],  
 	    });
 	}else{
 		$("#branchList").datagrid({  
 	        title:'机构列表', singleSelect:false, collapsible:true, pagination:true, rownumbers:true, method:'get',
 			nowrap:true, toolbar:"toolbar_branch", url:'branch/search_branch_by_'+name+'?searchValue='+value,
-			loadMsg:'数据加载中......', fitColumns:true,
+			loadMsg:'数据加载中......', fitColumns:true,//允许表格自动缩放,以适应父容器
 	        columns : [ [ 
-				{field : 'ck', checkbox:true },
-				{field : 'id', width : 150, align:'center', title : '机构编号'},
-				{field : 'name', width : 150, align : 'center', title : '机构名称'},
-				{field : 'short_name', width : 150, align : 'center', title : '机构简称'},
+	             	{field : 'ck', checkbox:true }, 
+	             	{field : 'id', width : 100, align:'center', title : '机构编号'},
+					{field : 'name', width : 100, align : 'center', title : '机构名称'},
+					{field : 'short_name', width : 100, align : 'center', title : '机构简称'}
 	        ] ],  
 	    });
 	}
 }
-
-
 	
 	//根据index拿到该行值
 	function onbranchClickRow(index) {
@@ -103,10 +99,6 @@ function doSearch_branch(value,name){ //用户输入用户名,点击搜素,触�
 		return rows[index];
 		
 	}
-	
-
-	
-	
 	
 	
     function getbranchSelectionsIds(){
@@ -137,23 +129,23 @@ function doSearch_branch(value,name){ //用户输入用户名,点击搜素,触�
        			$.messager.alert('提示', data.msg);
        		}else{
        			var ids = getbranchSelectionsIds();
-            	
-            	if(ids.length == 0){
-            		$.messager.alert('提示','必须选择一个用户才能编辑!');
-            		return ;
-            	}
-            	if(ids.indexOf(',') > 0){
-            		$.messager.alert('提示','只能选择一个用户!');
-            		return ;
-            	}
-            	
-            	$("#branchEditWindow").window({
-            		onLoad :function(){
-            			//回显数据
-            			var data = $("#branchList").datagrid("getSelections")[0];
-            			$("#branchEditForm").form("load", data);
-            		}
-            	}).window("open");
+               	if(ids.length == 0){
+               		$.messager.alert('提示','必须选择一个机构才能编辑!');
+               		return ;
+               	}
+               	if(ids.indexOf(',') > 0){
+               		$.messager.alert('提示','只能选择一个机构!');
+               		return ;
+               	}
+               	
+               	$("#branchEditWindow").window({
+               		onLoad :function(){
+               			//回显数据
+               			var data = $("#branchList").datagrid("getSelections")[0];
+               			
+               			$("#branchEditWindow").form("load", data);
+               		}
+               	}).window("open");
        		}
        	});
     }
@@ -164,22 +156,23 @@ function doSearch_branch(value,name){ //用户输入用户名,点击搜素,触�
       			$.messager.alert('提示', data.msg);
       		}else{
       			var ids = getbranchSelectionsIds();
-            	if(ids.length == 0){
-            		$.messager.alert('提示','未选中用户!');
-            		return ;
-            	}
-            	$.messager.confirm('确认','确定删除ID为 '+ids+' 的用户吗？',function(r){
-            	    if (r){
-            	    	var params = {"ids":ids};
-                    	$.post("branch/delete_batch",params, function(data){
-                			if(data.status == 200){
-                				$.messager.alert('提示','删除用户成功!',undefined,function(){
-                					$("#branchList").datagrid("reload");
-                				});
-                			}
-                		});
-            	    }
-            	});
+      			alert(ids);
+              	if(ids.length == 0){
+              		$.messager.alert('提示','未选中机构!');
+              		return ;
+              	}
+              	$.messager.confirm('确认','确定删除ID为 '+ids+' 的机构吗？',function(r){
+              	    if (r){
+              	    	var params = {"ids":ids};
+                      	$.post("branch/delete_batch",params, function(data){
+                  			if(data.status == 200){
+                  				$.messager.alert('提示','删除机构成功!',undefined,function(){
+                  					$("#branchList").datagrid("reload");
+                  				});
+                  			}
+                  		});
+              	    }
+              	});
       		}
       	});
     }

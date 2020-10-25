@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.megagao.production.ssm.domain.Branch;
+import com.megagao.production.ssm.domain.Custom;
+import com.megagao.production.ssm.domain.customize.CustomResult;
 import com.megagao.production.ssm.domain.customize.EUDataGridResult;
 import com.megagao.production.ssm.domain.vo.COrderVO;
 import com.megagao.production.ssm.mapper.BranchMapper;
@@ -24,7 +26,28 @@ public class BranchServiceImpl implements BranchService{
 	public List<Branch> find() {
 		return branchMapper.find();
 	}
+	
+	@Override
+	public CustomResult insert(Branch branch) throws Exception {
+		int i = branchMapper.insert(branch);
+		if (i > 0) {
+			return CustomResult.ok();
+		} else {
+			return CustomResult.build(101, "新增机构失败");
+		}
+	}
 
+	
+
+	@Override
+	public CustomResult updateAll(Branch branch) {
+		int i = branchMapper.update(branch);
+		if(i>0){
+			return CustomResult.ok();
+		}else{
+			return CustomResult.build(101, "修改订单失败");
+		}
+	}
 	@Override
 	public EUDataGridResult getList(int page, int rows) throws Exception {
 		//分页处理
@@ -83,5 +106,40 @@ public class BranchServiceImpl implements BranchService{
 		result.setTotal(pageInfo.getTotal());
 		return result;
 	}
+
+	@Override
+	public CustomResult delete(String string){
+		int i = branchMapper.deleteByPrimaryKey(string);
+		if(i>0){
+			return CustomResult.ok();
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public CustomResult deleteBatch(String[] ids){
+		int i = branchMapper.deleteBatch(ids);
+		if(i>0){
+			return CustomResult.ok();
+		}else{
+			return null;
+		}
+	}
+
+
+	@Override
+	public Branch get(String string) throws Exception{
+		return branchMapper.load(string);
+	}
+
+
+	@Override
+	public Branch load(String id) throws Exception {
+		return branchMapper.load(id);
+	}
+	
+	
+
 
 }
